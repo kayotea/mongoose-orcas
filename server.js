@@ -13,9 +13,9 @@ app.set('views', path.join(__dirname, './views'));
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/animal_db');
     var OrcaSchema = new mongoose.Schema({
-        name: String,
-        age: Number
-    })
+        name: {type: String, required: true, minlength: 1},
+        age: {type: Number, min: 0, max: 100}
+    }, {timestamps: true})
     //set schema as 'Orca'
     mongoose.model('Orca', OrcaSchema);
     //retrieve 'Orca'-named schema from mongoose models
@@ -34,6 +34,7 @@ app.get('/', function(req, res) {
     Orca.find({}, function(err, data){
         if (err){
             console.log('error! where are the orcas??')
+            res.render('index', {title: 'you have errors!', errors: user.errors});
         } else {
             console.log('orcas retrieved');
             orcas = data;
@@ -47,6 +48,7 @@ app.post('/orcas/new', function(req, res){
     orca.save(function(err){
         if (err) {
             console.log('Error! orca not properly added');
+            res.render('index', {title: 'you have errors!', errors: user.errors});
         } else {
             console.log('orca successfully added!');
             res.redirect('/');
@@ -58,7 +60,11 @@ app.get('/orcas/:id', function(req, res){
     console.log('fetching orca:', req.params.id);
     Orca.find({_id: req.params.id}, function(err, orca){
         //console.log(orca[0]);
-        res.render('individual', {orca: orca[0]});
+        if (err) {
+            res.render('index', {title: 'you have errors!', errors: user.errors});
+        } else {
+            res.render('individual', {orca: orca[0]});
+        }
     });
 })
 //direct to form to edit a particular orca
@@ -66,7 +72,11 @@ app.get('/orcas/edit/:id', function(req, res){
     console.log('editing orca:', req.params.id);
     Orca.find({_id: req.params.id}, function(err, orca){
         //console.log(orca[0]);
-        res.render('edit_orca', {orca: orca[0]});
+        if (err) {
+            res.render('index', {title: 'you have errors!', errors: user.errors});
+        } else {
+            res.render('edit_orca', {orca: orca[0]});
+        }
     });
 })
 //edit that particular orca
@@ -79,6 +89,7 @@ app.post('/orcas/:id', function(req, res){
     Orca.update({_id: req.params.id}, {name: name, age: age}, function(err, orca){
         if (err){
             console.log('error editing orca');
+            res.render('index', {title: 'you have errors!', errors: user.errors});
         } else {
             console.log('success editing orca');
             console.log('orca:', orca);
@@ -92,6 +103,7 @@ app.post('/orcas/destroy/:id', function(req, res){
     Orca.deleteOne({_id: req.params.id}, function(err){
         if (err){
             console.log('error deleting orca');
+            res.render('index', {title: 'you have errors!', errors: user.errors});
         } else {
             console.log('success deleting orca');
             res.redirect('/');
