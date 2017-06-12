@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Edit Orca Page</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript">
+            // $(document).ready(function (){
+            //     document.getElementById("to_quotes").onclick = function () {
+            //         location.href = "/quotes";
+            //     };
+            // });
+        </script>
+    </head>
+    <body>
+        <h2>Edit <%= orca['name'] %>:</h2>
+        <form action="/orcas/<%= orca['_id'] %>" method="post">
+            Orca's Name: <input type="text" name="name"><br>
+            Orca's Age: <input type="number" name="age"><br>
+            <input type="submit" value="Edit Orca">
+        </form>
+    </body>
+</html>

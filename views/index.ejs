@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Root Page</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript">
+            // $(document).ready(function (){
+            //     document.getElementById("to_quotes").onclick = function () {
+            //         location.href = "/quotes";
+            //     };
+            // });
+        </script>
+    </head>
+    <body>
+        <h2>Add a New Orca:</h2>
+        <form action="/orcas/new" method="post">
+            Orca's Name: <input type="text" name="name"><br>
+            Orca's Age: <input type="number" name="age"><br>
+            <input type="submit" value="Add Orca">
+        </form>
+        <h2>Orcas:</h2>
+        <hr>
+        <% for (var i = 0; i < orcas.length; i++) { %>
+            <p>Orca #<%= i+1 %>: ~~~~~~</p>
+            <p>~~ (o__>{ ~~~~</p>
+            <a href="/orcas/<%= orcas[i]._id %>">
+                <button type="button">learn more</button>
+            </a>
+            <a href="/orcas/edit/<%= orcas[i]._id %>">
+                <button type="button">edit</button>
+            </a>
+            <form action="/orcas/destroy/<%= orcas[i]._id %>" method="post">
+                <input type="submit" value="delete">
+            </form>
+            <hr>
+        <% } %>
+    </body>
+</html>

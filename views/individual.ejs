@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>New Orca Page</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript">
+            // $(document).ready(function (){
+            //     document.getElementById("to_quotes").onclick = function () {
+            //         location.href = "/quotes";
+            //     };
+            // });
+        </script>
+    </head>
+    <body>
+        <p>Name: <%= orca['name'] %></p>
+        <p>Age: <%= orca['age'] %></p>
+        <p><a href="/orcas/edit/<%= orca['_id'] %>">edit</a></p>
+    </body>
+</html>
