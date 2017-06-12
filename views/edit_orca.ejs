@@ -12,6 +12,11 @@
         </script>
     </head>
     <body>
+        <% if(typeof(errors) != 'undefined' ) { %>
+            <% for (var x in errors) { %>
+            <h3><%= errors[x].message %></h3>
+            <% } %>
+        <% } %>
         <h2>Edit <%= orca['name'] %>:</h2>
         <form action="/orcas/<%= orca['_id'] %>" method="post">
             Orca's Name: <input type="text" name="name"><br>

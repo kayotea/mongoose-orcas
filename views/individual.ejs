@@ -12,6 +12,11 @@
         </script>
     </head>
     <body>
+        <% if(typeof(errors) != 'undefined' ) { %>
+            <% for (var x in errors) { %>
+            <h3><%= errors[x].message %></h3>
+            <% } %>
+        <% } %>
         <p>Name: <%= orca['name'] %></p>
         <p>Age: <%= orca['age'] %></p>
         <p><a href="/orcas/edit/<%= orca['_id'] %>">edit</a></p>
